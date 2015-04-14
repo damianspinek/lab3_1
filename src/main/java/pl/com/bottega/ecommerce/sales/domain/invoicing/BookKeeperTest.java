@@ -40,7 +40,7 @@ public class BookKeeperTest {
 	}
 	
 	@Test
-	public void bookKeeper_issuanceTest_giveTwoPosition_shouldCallCalculateTacTwice(){
+	public void bookKeeper_issuanceTest_giveTwoPosition_shouldCallCalculateTaxTwice(){
 		ClientData client = new ClientData(Id.generate(), "Spinek");
 		BookKeeper bookKeeper = new BookKeeper( new InvoiceFactory());
 		Money money = new Money(1);
@@ -80,6 +80,27 @@ public class BookKeeperTest {
 		Invoice invoice = bookKeeper.issuance(invoiceRequest, taxPolicy);
 		
 		assertThat(invoice.getItems().size(), is(0));		
+	}
+	
+	@Test
+	public void bookKeeper_issuanceTest_giveZeroPosition_shouldNotCallCalculateTax(){
+		ClientData client = new ClientData(Id.generate(), "Spinek");
+		BookKeeper bookKeeper = new BookKeeper( new InvoiceFactory());
+		Money money = new Money(1);
+		ProductData productData =  new ProductData(Id.generate(), money, "Chleb", ProductType.FOOD, new Date());
+		RequestItem requestItem = new RequestItem(productData, 1, money);
+		
+		InvoiceFactory invoiceFactory = mock(InvoiceFactory.class);
+		when(invoiceFactory.create((ClientData)Mockito.any())).thenReturn(new Invoice(Id.generate(), client));
+		TaxPolicy taxPolicy = mock(TaxPolicy.class);
+		when(taxPolicy.calculateTax((ProductType)Mockito.any(), (Money)Mockito.any())).thenReturn(new Tax(money, ""));
+		
+		InvoiceRequest invoiceRequest = new InvoiceRequest(client);
+		
+		Invoice invoice = bookKeeper.issuance(invoiceRequest, taxPolicy);
+		
+		Mockito.verify(taxPolicy, Mockito.times(0)).calculateTax((ProductType)Mockito.any(), (Money)Mockito.any());
+		
 	}
 
 }
