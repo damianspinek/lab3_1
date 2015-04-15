@@ -1,18 +1,18 @@
 package pl.com.bottega.ecommerce.sales.domain.invoicing;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.ClientData;
+import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.ClientDataBuilder;
 import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.Id;
 import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductData;
+import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductDataBuilder;
 import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductType;
 import pl.com.bottega.ecommerce.sharedkernel.Money;
 
@@ -20,11 +20,11 @@ public class BookKeeperTest {
 
 	@Test
 	public void bookKeeper_issuanceTest_giveOnePosition_ExpectedOnePosition() {
-		ClientData client = new ClientData(Id.generate(), "Spinek");
+		ClientData client = new ClientDataBuilder().build();
 		BookKeeper bookKeeper = new BookKeeper( new InvoiceFactory());
 		Money money = new Money(1);
-		ProductData productData =  new ProductData(Id.generate(), money, "Chleb", ProductType.FOOD, new Date());
-		RequestItem requestItem = new RequestItem(productData, 1, money);
+		ProductData productData =  new ProductDataBuilder().build();
+		RequestItem requestItem = new RequestItemBuilder().build();
 		
 		InvoiceFactory invoiceFactory = mock(InvoiceFactory.class);
 		when(invoiceFactory.create((ClientData)Mockito.any())).thenReturn(new Invoice(Id.generate(), client));
@@ -41,11 +41,11 @@ public class BookKeeperTest {
 	
 	@Test
 	public void bookKeeper_issuanceTest_giveTwoPosition_shouldCallCalculateTaxTwice(){
-		ClientData client = new ClientData(Id.generate(), "Spinek");
+		ClientData client = new ClientDataBuilder().build();
 		BookKeeper bookKeeper = new BookKeeper( new InvoiceFactory());
 		Money money = new Money(1);
-		ProductData productData =  new ProductData(Id.generate(), money, "Chleb", ProductType.FOOD, new Date());
-		RequestItem requestItem = new RequestItem(productData, 1, money);
+		ProductData productData =  new ProductDataBuilder().build();;
+		RequestItem requestItem = new RequestItemBuilder().build();
 		
 		InvoiceFactory invoiceFactory = mock(InvoiceFactory.class);
 		when(invoiceFactory.create((ClientData)Mockito.any())).thenReturn(new Invoice(Id.generate(), client));
@@ -64,11 +64,11 @@ public class BookKeeperTest {
 	
 	@Test
 	public void bookKeeper_issuanceTest_giveZeroPosition_ExpectedZeroPosition() {
-		ClientData client = new ClientData(Id.generate(), "Spinek");
+		ClientData client = new ClientDataBuilder().build();
 		BookKeeper bookKeeper = new BookKeeper( new InvoiceFactory());
 		Money money = new Money(1);
-		ProductData productData =  new ProductData(Id.generate(), money, "Chleb", ProductType.FOOD, new Date());
-		RequestItem requestItem = new RequestItem(productData, 1, money);
+		ProductData productData =  new ProductDataBuilder().build();
+		RequestItem requestItem = new RequestItemBuilder().build();
 		
 		InvoiceFactory invoiceFactory = mock(InvoiceFactory.class);
 		when(invoiceFactory.create((ClientData)Mockito.any())).thenReturn(new Invoice(Id.generate(), client));
@@ -84,11 +84,11 @@ public class BookKeeperTest {
 	
 	@Test
 	public void bookKeeper_issuanceTest_giveZeroPosition_shouldNotCallCalculateTax(){
-		ClientData client = new ClientData(Id.generate(), "Spinek");
+		ClientData client = new ClientDataBuilder().build();
 		BookKeeper bookKeeper = new BookKeeper( new InvoiceFactory());
 		Money money = new Money(1);
-		ProductData productData =  new ProductData(Id.generate(), money, "Chleb", ProductType.FOOD, new Date());
-		RequestItem requestItem = new RequestItem(productData, 1, money);
+		ProductData productData =  new ProductDataBuilder().build();
+		RequestItem requestItem = new RequestItemBuilder().build();
 		
 		InvoiceFactory invoiceFactory = mock(InvoiceFactory.class);
 		when(invoiceFactory.create((ClientData)Mockito.any())).thenReturn(new Invoice(Id.generate(), client));
