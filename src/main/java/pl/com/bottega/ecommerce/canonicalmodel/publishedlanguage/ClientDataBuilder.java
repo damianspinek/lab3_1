@@ -4,15 +4,18 @@ public class ClientDataBuilder {
 	private Id id = Id.generate();
 	private String name="";
 	
-	public void setId(Id id){
+	public ClientDataBuilder withId(Id id){
 		this.id = id;
+		return this;
 	}
 	
-	public void setName(String name){
+	public ClientDataBuilder withName(String name){
 		this.name = name;
+		return this;
 	}
 	
 	public ClientData build(){
 		return new ClientData(this.id, name);
+		
 	}
 }

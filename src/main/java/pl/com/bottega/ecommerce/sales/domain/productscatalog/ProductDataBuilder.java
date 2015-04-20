@@ -12,17 +12,21 @@ public class ProductDataBuilder {
 	private Date snapshotDate = new Date();		
 	private ProductType type = ProductType.STANDARD;
 	
-	public void setProductId(Id productId) {
+	public ProductDataBuilder withProductId(Id productId) {
 		this.productId = productId;
+		return this;
 	}
-	public void setName(String name) {
+	public ProductDataBuilder withName(String name) {
 		this.name = name;
+		return this;
 	}
-	public void setSnapshotDate(Date snapshotDate) {
+	public ProductDataBuilder withSnapshotDate(Date snapshotDate) {
 		this.snapshotDate = snapshotDate;
+		return this;
 	}
-	public void setType(ProductType type) {
+	public ProductDataBuilder withType(ProductType type) {
 		this.type = type;
+		return this;
 	}
 	
 	public ProductData build(){

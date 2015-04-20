@@ -8,14 +8,17 @@ public class RequestItemBuilder {
 	private ProductData productData = new ProductDataBuilder().build();
 	private int quantity = 0;
 	private Money totalCost = new Money(1);
-	public void setProductData(ProductData productData) {
+	public RequestItemBuilder setProductData(ProductData productData) {
 		this.productData = productData;
+		return this;
 	}
-	public void setQuantity(int quantity) {
+	public RequestItemBuilder withQuantity(int quantity) {
 		this.quantity = quantity;
+		return this;
 	}
-	public void setTotalCost(Money totalCost) {
+	public RequestItemBuilder withTotalCost(Money totalCost) {
 		this.totalCost = totalCost;
+		return this;
 	}
 	
 	public RequestItem build(){
